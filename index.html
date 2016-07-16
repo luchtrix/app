@@ -1,5 +1,113 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
+<head>
+  <title>Ejercicio 2</title>
+    <!--script type="text/javascript" charset="utf-8" src="cordova-2.0.0.js"></script-->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <script type="text/javascript" src ="jquery-2.0.2.js"></script>
+    <script src="cordova.js" type="text/javascript"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Call onDeviceReady when Cordova is loaded.
+    //
+    // At this point, the document has loaded but cordova-2.0.0.js has not.
+    // When Cordova is loaded and talking with the native device,
+    // it will call the event `deviceready`.
+    //
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // Cordova is loaded and it is now safe to make calls Cordova methods
+    //
+    function onDeviceReady() {
+      horaFecha = new Date();
+      var dia = horaFecha.getDate();
+      var d = horaFecha.getDay();
+      var mes = horaFecha.getMonth();
+      var year = horaFecha.getFullYear();
+      var hora = horaFecha.getHours();
+      var minutos = horaFecha.getMinutes();
+      var segundos = horaFecha.getSeconds();
+      var meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre",
+      "Octubre","Noviembre","Diciembre"];
+      var dias = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"];
+
+      var month = "";
+      var day = "";
+      for (var i = 0;i< meses.length; i++) {
+        if(i==mes){
+          month = meses[i];
+        }
+      }
+      for (var j = 0;j< dias.length; j++) {
+        if(j==(d-1)){
+          day = dias[j];
+        }
+      }
+      //alert("La hora es: "+hora+" con "+minutos+" minutos y "+segundos+" segundos");
+      
+      contenido.innerHTML = "";
+    contenido.innerHTML += 'Hoy es '+day +" "+dia+' de'+ month+' del '+year+'<br>Y la hora es: '+hora+" con "+minutos+' minutos y '+segundos+' segundos';
+
+      // getHours(); Devuelve la hora
+      // getMinutes(); Devuelve los minutos
+
+        //document.addEventListener("online", onOnline, false);
+        //document.addEventListener("offline", onOffline, false);
+    }
+
+    function actualizarHora(){
+      horaFecha = new Date();
+      var dia = horaFecha.getDate();
+      var d = horaFecha.getDay();
+      var mes = horaFecha.getMonth();
+      var year = horaFecha.getFullYear();
+      var hora = horaFecha.getHours();
+      var minutos = horaFecha.getMinutes();
+      var segundos = horaFecha.getSeconds();
+      var meses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre",
+      "Octubre","Noviembre","Diciembre"];
+      var dias = ["Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"];
+
+      var month = "";
+      var day = "";
+      for (var i = 0;i< meses.length; i++) {
+        if(i==mes){
+          month = meses[i];
+        }
+      }
+      for (var j = 0;j< dias.length; j++) {
+        if(j==(d-1)){
+          day = dias[j];
+        }
+      }
+      //alert("La hora es: "+hora+" con "+minutos+" minutos y "+segundos+" segundos");
+      
+      contenido.innerHTML = "";
+    contenido.innerHTML += 'Hoy es <b>'+day +" "+dia+' de'+ month+' del '+year+'</b><br>Y la hora es: <b>'+hora+" con "+minutos+' minutos y '+segundos+' segundos</b>';
+
+    }
+
+    </script>
+
+  </head>
+
+  <body onload="onLoad()">
+  <h3>Fecha y Hora</h3>
+  <div class="jumbotron">
+    <div id="contenido">
+      
+    </div>
+
+  </div>
+
+  <br>
+  <button class="btn btn-success" onclick="actualizarHora()">Actualizar Hora</button>
+  </body>
+</html>
+=======
   <head>
     <title>Capture Photo</title>
 
@@ -101,3 +209,4 @@
     <img style="display:none;" id="largeImage" src="" />
   </body>
 </html>
+>>>>>>> 12e466bed0f9401a4dd5bfc22eedca084f00bc42
