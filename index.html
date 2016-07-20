@@ -56,12 +56,14 @@
       alert("Vamo a capturar una fotico :-)!")
       // Take picture using device camera and retrieve image as base64-encoded string
       //navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail,{
+      /*navigator.camera.getPicture(onPhotoDataSuccess, onFail,{
           quality : 50,
           destinationType : Camera.DestinationType.FILE_URI,
           sourceType : Camera.PictureSourceType.CAMERA,
           popoverOptions: CameraPopoverOptions
-        });
+        });*/
+        navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
+        destinationType: destinationType.DATA_URL });
     }
     // A button will call this function
     //
