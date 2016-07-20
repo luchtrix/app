@@ -18,52 +18,44 @@
     }
 
     // Called when a photo is successfully retrieved
-    function onPhotoDataSuccess(imageData) {
-        // Uncomment to view the base64 encoded image data
-        var date = ""
-        var d = new Date();
-        date = "" + d.getDate() + "-" + (d.getMonth() + 1) + "-"
-                + d.getFullYear();
-        alert(date)
-        //alert(imageData);  
+    function onPhotoDataSuccess(imageURI) {
+        alert("onPhotoDataSuccess "+imageURI);
+  var gotFileEntry = function(fileEntry) {
+    //alert("got image file entry: " + fileEntry.fullPath);
+    var gotFileSystem = function(fileSystem) {
 
-        // Get image handle
-        //
-        var smallImage = document.getElementById('smallImage');
-        // Unhide image elements
-        //
-        smallImage.style.display = 'block';
+        fileSystem.root.getDirectory("MyAppFolder", {
+            create : true
+        }, function(dataDir) {
+          var d = new Date();
+          var n = d.getTime();
+          //new file name
+          var newFileName = n + ".jpg";
+console.log("Saved image" + dataDir);
+            // copy the file
+            fileEntry.moveTo(dataDir, newFileName, null, fsFail);
 
-        // Show the captured photo
-        // The inline CSS rules are used to resize the image
-        //
-        smallImage.src = "data:image/jpeg;base64," + imageData;
+        }, dirFail);
 
-        alert("data:image/jpeg;base64," + imageData)
+    };
+    // get file system to copy or move image file to
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFileSystem,
+        fsFail);
+};
+// resolve file system for image
+window.resolveLocalFileSystemURI(imageURI, gotFileEntry, fsFail);
 
-        //This part is for saving the capture photo
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+// file system fail
+var fsFail = function(error) {
+    alert("failed with error code: " + error.code);
 
-        function gotFS(fileSystem) {
-            alert("image/" + date + ".jpeg")
-            fileSystem.root.getFile("image/" + date + ".jpeg", {
-                create : true,
-                exclusive : false
-            }, gotFileEntry, fail);
-        }
-        function gotFileEntry(fileEntry) {
-            fileEntry.createWriter(gotFileWriter, fail);
-        }
-        function gotFileWriter(writer) {
-            var data = "data:image/jpeg;base64," + imageData;
-            writer.write(data);
+};
 
-        }
-        function fail(error) {
-            alert("error")
-            console.log(error.code);
-        }
-    }
+var dirFail = function(error) {
+    alert("Directory error code: " + error.code);
+
+};
+}
 
     // Called when a photo is successfully retrieved
     function onPhotoURISuccess(imageURI) {
