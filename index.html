@@ -1,132 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Capture Photo and Save</title>
+    <head>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <title>Subir imagen</title>
+        <script>
+            function hacerFoto(){
+                navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+            }
+            
+            function onSuccess(imageURI) {
+                var image = document.getElementById('fotoLocal');
+                image.src = imageURI;
+                //subirImagen(imageURI)                             
+            }
+        
+            function onFail(message) {
+                alert('Failed because: ' + message);
+            }
+            
+            /*function subirImagen(fileURL) {
+            
+                var options = new FileUploadOptions();
+                options.fileKey = "imagen";
+                options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
 
-<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-<script type="text/javascript" charset="utf-8">
-    var pictureSource; // picture source
-    var destinationType; // sets the format of returned value 
+                var ft = new FileTransfer();
+                ft.upload(fileURL, encodeURI("http://jcesar.16mb.com/upload/upload.php"), uploadSuccess, uploadFail, options);
+            }
 
-    // Wait for Cordova to connect with the device
-    document.addEventListener("deviceready", onDeviceReady, false);
+            function uploadSuccess(r) {
+                alert("Code = " + r.responseCode+" Response = " + r.response+" Sent = " + r.bytesSent);
+                var image = document.getElementById('fotoServidor');
+                image.src = r.response;
+            }
 
-    // Cordova is ready to be used!
-    function onDeviceReady() {
-        pictureSource = navigator.camera.PictureSourceType;
-        destinationType = navigator.camera.DestinationType;
-    }
-
-    // Called when a photo is successfully retrieved
-    function onPhotoDataSuccess(imageURI) {
-        alert("onPhotoDataSuccess "+imageURI);
-  var gotFileEntry = function(fileEntry) {
-    alert("got image file entry: " + fileEntry.fullPath);
-    var gotFileSystem = function(fileSystem) {
-    alert("1");
-        fileSystem.root.getDirectory("MyAppFolder", {
-            create : true
-        }, function(dataDir) {
-          var d = new Date();
-          var n = d.getTime();
-          //new file name
-          var newFileName = n + ".jpg";
-alert("Saved image" + dataDir);
-            // copy the file
-            fileEntry.moveTo(dataDir, newFileName, null, fsFail);
-
-        }, dirFail);
-
-    };
-    // get file system to copy or move image file to
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFileSystem,
-        fsFail);
-};
-// resolve file system for image
-window.resolveLocalFileSystemURI(imageURI, gotFileEntry, fsFail);
-
-// file system fail
-var fsFail = function(error) {
-    alert("failed with error code: " + error.code);
-
-};
-
-var dirFail = function(error) {
-    alert("Directory error code: " + error.code);
-
-};
-}
-
-    // Called when a photo is successfully retrieved
-    function onPhotoURISuccess(imageURI) {
-        // Uncomment to view the image file URI 
-        // console.log(imageURI);
-
-        // Get image handle
-        var largeImage = document.getElementById('largeImage');
-        // Unhide image elements
-        largeImage.style.display = 'block';
-
-        // Show the captured photo
-        // The inline CSS rules are used to resize the image
-        //
-        largeImage.src = imageURI;
-    }
-
-    // A button will call this function
-    function capturePhoto() {
-        // Take picture using device camera and retrieve image as base64-encoded string
-        navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
-            quality : 50,
-            destinationType : destinationType.DATA_URL
-        });
-    }
-
-    // A button will call this function
-    //
-    function capturePhotoEdit() {
-        // Take picture using device camera, allow edit, and retrieve image as base64-encoded string  
-        navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
-            quality : 20,
-            allowEdit : true,
-            destinationType : destinationType.DATA_URL
-        });
-    }
-
-    // A button will call this function
-    function getPhoto(source) {
-        // Retrieve image file location from specified source
-        navigator.camera.getPicture(onPhotoURISuccess, onFail, {
-            quality : 50,
-            destinationType : destinationType.FILE_URI,
-            sourceType : source
-        });
-    }
-
-    // Called if something bad happens.
-    function onFail(message) {
-        alert('Failed because: ' + message);
-    }
-    function savePhoto(source) {
-
-    }
-</script>
-</head>
-<body>
-    <button onclick="capturePhoto();">Tomar Foto II</button>
-    <br>
-    <button onclick="capturePhotoEdit();">Capture Editable Photo</button>
-    <br>
-    <button onclick="savePhoto();">Save The Photo In Server</button>
-    <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From
-        Photo Library</button>
-    <br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From
-        PhotoAlbum</button>
-    <br>
-    <img style="display: none; width: 60px; height: 60px;" id="smallImage"
-        src="" />
-    <img style="display: none;" id="largeImage" src="" />
-</body>
+            function uploadFail(error) {
+                alert("An error has occurred: Code = " + error.code+ " upload error source " + error.source+" upload error target " + error.target);
+            }*/
+                                        
+        </script>
+    </head>
+    <body>
+        <div class="app">
+            <h1>Apache Cordova</h1>
+            <input type="button" onclick="hacerFoto();"  value="Hacer Foto">
+            <img id="fotoLocal" src="" width="100px" height="100px">
+            <!--img id="fotoServidor" src="" width="100px" height="100px"-->
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+    </body>
 </html>
