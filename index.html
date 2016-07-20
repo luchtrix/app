@@ -21,9 +21,9 @@
     function onPhotoDataSuccess(imageURI) {
         alert("onPhotoDataSuccess "+imageURI);
   var gotFileEntry = function(fileEntry) {
-    //alert("got image file entry: " + fileEntry.fullPath);
+    alert("got image file entry: " + fileEntry.fullPath);
     var gotFileSystem = function(fileSystem) {
-
+    alert("1");
         fileSystem.root.getDirectory("MyAppFolder", {
             create : true
         }, function(dataDir) {
@@ -31,7 +31,7 @@
           var n = d.getTime();
           //new file name
           var newFileName = n + ".jpg";
-console.log("Saved image" + dataDir);
+alert("Saved image" + dataDir);
             // copy the file
             fileEntry.moveTo(dataDir, newFileName, null, fsFail);
 
