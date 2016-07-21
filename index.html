@@ -5,13 +5,16 @@
         <title>Subir imagen</title>
         <script>
             function hacerFoto(){
-                navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+                //navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+                navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.DATA_URL });
             }
             
             function onSuccess(imageURI) {
                 alert("imageUri "+imageURI)
                 var image = document.getElementById('fotoLocal');
                 image.src = imageURI;
+                var image2 = document.getElementById('fotoLocalII');
+                image2src = "data:image/jpeg;base64," + imageURI;
                 //subirImagen(imageURI)                             
             }
         
@@ -70,6 +73,8 @@
             <h1>Apache Cordova</h1>
             <input type="button" onclick="hacerFoto();"  value="Tome una Foto">
             <img id="fotoLocal" src="" width="100px" height="100px">
+            <br>
+            <img id="fotoLocalII" src="" width="100px" height="100px">
             <!--img id="fotoServidor" src="" width="100px" height="100px"-->
             <div id="camera_status"></div>
         </div>
