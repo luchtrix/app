@@ -30,6 +30,7 @@
             }
             
             function uploadFile(){
+                alert("Subiendo Img");
                 //subir imagen
                 //192.168.0.32
                 var urlServidor = "http://192.168.0.32:8080/guardar";
@@ -112,7 +113,8 @@
             <input type="button" onclick="hacerFoto();"  value="Tome una Foto">
             <img id="fotoLocal" src="" width="100px" height="100px">
             <br>
-            <canvas height="300px" width="300px" id="micanvas"></canvas>
+            <canvas height="300px" width="300px" id="micanvas"></canvas><br>
+            <button onclick="uploadFile()">Upload</button>
             <!--img id="fotoLocalII" src="" width="100px" height="100px"-->
             <!--img id="fotoServidor" src="" width="100px" height="100px"-->
             <div id="camera_status"></div>
