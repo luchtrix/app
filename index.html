@@ -9,16 +9,17 @@
             }
             
             function onSuccess(imageURI) {
+                alert("imageUri "+imageURI)
                 var image = document.getElementById('fotoLocal');
                 image.src = imageURI;
-                subirImagen(imageURI)                             
+                //subirImagen(imageURI)                             
             }
         
             function onFail(message) {
                 alert('Failed because: ' + message);
             }
 
-            function subirImagen(imageURI){
+            /*function subirImagen(imageURI){
                 alert("subiendo imagen a ver que pedo")
                 // Verify server has been entered
                 //server = 'http://192.168.1.3:8180/newimage/';
@@ -42,7 +43,7 @@
                 }
             }
             
-            /*function subirImagen(fileURL) {
+            function subirImagen(fileURL) {
             
                 var options = new FileUploadOptions();
                 options.fileKey = "imagen";
