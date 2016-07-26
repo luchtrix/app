@@ -7,48 +7,35 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script>
             function hacerFoto(){
-                navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
-                //navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.DATA_URL });
+                //navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+                navigator.camera.getPicture(onSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.DATA_URL });
             }
-            
+            var URI_FINAL = "";            
             function onSuccess(imageURI) {
                 alert("imageUri "+imageURI)
                 var image = document.getElementById('fotoLocal');
                 image.src = imageURI;
-                //var image2 = document.getElementById('fotoLocalII');
-                //image2.src = "data:image/jpeg;base64," + imageURI;
-                
-                var canvas = document.getElementById("micanvas");
-                var ctx = canvas.getContext("2d");
-                var img = new Image();
-                img.src = imageURI;
-                //img.src = "img/logo.png";
-                ctx.drawImage(img, 0, 0);
-                img.onload = function(){
-                    ctx.drawImage(img, 0, 0);
-                }
+                var image2 = document.getElementById('fotoLocalII');
+                URI_FINAL = "data:image/png;base64," + imageURI;
+                image2.src = URI_FINAL;
             }
             
             function uploadFile(){
-                alert("Subiendo Img");
+                alert("Subiendo Img Version 1.1.... :-)");
                 //subir imagen
                 //var urlServidor = "http://192.168.0.32:8080/guardar";
                 var urlServidor = "http://192.168.0.106:8080/guardar";
-              	var canvas = document.getElementById ("micanvas");
-        		alert("mi Pic "+canvas.toDataURL());
-        		//alert("mi Pic "+imageURI);
-                var body = {};
-                body.urlFile = canvas.toDataURL();
-                //body.urlFile = imageURI;
+              	var body = {};
+                body.urlFile = URI_FINAL;
                 $.ajax({
         		  url: urlServidor,
         		  data: body,
         		  type: "post",
         		  success: function(response) {
         		  		if(response.type){
-        					alert("ps creo que se guardo")
+        					alert("YA ESTA...creo que se guardo")
         				}else{
-        					alert("PTM NO se guardo")
+        					alert("PTM....creo que noo se guardo")
         				}
         		  	}
         		  });
@@ -57,52 +44,8 @@
             }
         
             function onFail(message) {
-                alert('Failed because: ' + message);
+                alert('Falló a causa de: ' + message);
             }
-
-            /*function subirImagen(imageURI){
-                alert("subiendo imagen a ver que pedo")
-                // Verify server has been entered
-                //server = 'http://192.168.1.3:8180/newimage/';
-                server = 'http://192.168.0.106:8080';
-                if (server) {
-                    alert("starting upload");
-                    // Specify transfer options
-                    var options = new FileUploadOptions();
-                    options.fileKey="file";
-                    options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
-                    options.mimeType="image/jpeg"
-                    options.chunkedMode = false;
-
-                    // Transfer picture to server
-                    var ft = new FileTransfer();
-                    ft.upload(imageURI, server, function(r) {
-                        document.getElementById('camera_status').innerHTML = "Upload successful: "+r.bytesSent+" bytes uploaded.";              
-                    }, function(error) {
-                        document.getElementById('camera_status').innerHTML = "Upload failed: Code = "+error.code;               
-                    }, options, true);
-                }
-            }
-            
-            function subirImagen(fileURL) {
-            
-                var options = new FileUploadOptions();
-                options.fileKey = "imagen";
-                options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-
-                var ft = new FileTransfer();
-                ft.upload(fileURL, encodeURI("http://jcesar.16mb.com/upload/upload.php"), uploadSuccess, uploadFail, options);
-            }
-
-            function uploadSuccess(r) {
-                alert("Code = " + r.responseCode+" Response = " + r.response+" Sent = " + r.bytesSent);
-                var image = document.getElementById('fotoServidor');
-                image.src = r.response;
-            }
-
-            function uploadFail(error) {
-                alert("An error has occurred: Code = " + error.code+ " upload error source " + error.source+" upload error target " + error.target);
-            }*/
                                         
         </script>
     </head>
@@ -112,7 +55,7 @@
             <input type="button" onclick="hacerFoto();"  value="Tome una Foto">
             <img id="fotoLocal" src="" width="100px" height="100px">
             <br>
-            <canvas height="300px" width="300px" id="micanvas"></canvas><br>
+            <!--canvas height="300px" width="300px" id="micanvas"></canvas><br-->
             <button onclick="uploadFile()">Upload</button>
             <!--img id="fotoLocalII" src="" width="100px" height="100px"-->
             <!--img id="fotoServidor" src="" width="100px" height="100px"-->
@@ -120,4 +63,3 @@
         </div>
         <!--script type="text/javascript" src="cordova.js"></script-->
     </body>
-</html>
